@@ -1,91 +1,71 @@
+
 package com.placement.model;
 
 public class Student {
+
     private int studentId;
     private String name;
-    private int age;
-    private String branch;
+    private String department;
     private double cgpa;
     private String email;
-    private String skills;
 
-    public Student(int studentId, String name, int age, String branch,
-                   double cgpa, String email, String skills) {
+    // Constructor
+    public Student(int studentId, String name,
+                   String department, double cgpa,
+                   String email) {
 
         this.studentId = studentId;
         this.name = name;
-        this.age = age;
-        this.branch = branch;
+        this.department = department;
         this.cgpa = cgpa;
         this.email = email;
-        this.skills = skills;
     }
 
+    // Getter methods
     public int getStudentId() {
         return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getBranch() {
-        return branch;
-    }
-
-    public void setBranch(String branch) {
-        this.branch = branch;
+    public String getDepartment() {
+        return department;
     }
 
     public double getCgpa() {
         return cgpa;
     }
 
-    public void setCgpa(double cgpa) {
-        this.cgpa = cgpa;
-    }
-
     public String getEmail() {
         return email;
+    }
+
+    // Setter methods
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setCgpa(double cgpa) {
+        this.cgpa = cgpa;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getSkills() {
-        return skills;
-    }
-
-    public void setSkills(String skills) {
-        this.skills = skills;
-    }
-    @Override
-    public String toString() {
-        return "Student{" +
-                "studentId=" + studentId +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", branch='" + branch + '\'' +
-                ", cgpa=" + cgpa +
-                ", email='" + email + '\'' +
-                ", skills='" + skills + '\'' +
-                '}';
+    // Display student details
+    public void displayStudent() {
+        System.out.println("Student ID: " + studentId);
+        System.out.println("Name: " + name);
+        System.out.println("Department: " + department);
+        System.out.println("CGPA: " + cgpa);
+        System.out.println("Email: " + email);
     }
 }
+
