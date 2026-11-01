@@ -3,10 +3,12 @@ package com.placement;
 
 import com.placement.model.Student;
 import com.placement.model.Company;
+import com.placement.model.Resume;
+
 import com.placement.service.StudentService;
 import com.placement.service.CompanyService;
 import com.placement.service.PlacementApplicationService;
-import com.placement.util.InputUtil;
+import com.placement.service.ResumeService;
 
 import java.util.Scanner;
 
@@ -20,11 +22,15 @@ public class Main {
         CompanyService companyService = new CompanyService();
         PlacementApplicationService applicationService =
                 new PlacementApplicationService();
+        ResumeService resumeService = new ResumeService();
 
-        int choice = 0;
+        int choice;
 
         do {
-            System.out.println("\n===== STUDENT PLACEMENT MANAGEMENT SYSTEM =====");
+            System.out.println("\n======================================");
+            System.out.println(" STUDENT PLACEMENT MANAGEMENT SYSTEM");
+            System.out.println("======================================");
+
             System.out.println("1. Register Student");
             System.out.println("2. View All Students");
             System.out.println("3. Search Student");
@@ -39,30 +45,33 @@ public class Main {
             System.out.println("12. Update Application Status");
             System.out.println("13. View Applications by Student");
             System.out.println("14. View Placement Statistics");
-            System.out.println("15. Exit");
+            System.out.println("15. Resume Management");
+            System.out.println("16. Exit");
 
-            choice = InputUtil.readInt(sc, "Enter your choice: ");
+            System.out.print("\nEnter your choice: ");
+            choice = Integer.parseInt(sc.nextLine());
 
             switch (choice) {
 
                 case 1: {
-                    int studentId = InputUtil.readInt(sc, "Enter Student ID: ");
+                    System.out.print("Enter Student ID: ");
+                    int studentId = Integer.parseInt(sc.nextLine());
 
-                    sc.nextLine();
                     System.out.print("Enter Student Name: ");
                     String name = sc.nextLine();
 
                     System.out.print("Enter Department: ");
                     String department = sc.nextLine();
 
-                    double cgpa = InputUtil.readDouble(sc, "Enter CGPA: ");
+                    System.out.print("Enter CGPA: ");
+                    double cgpa = Double.parseDouble(sc.nextLine());
 
-                    sc.nextLine();
                     System.out.print("Enter Email: ");
                     String email = sc.nextLine();
 
                     Student student = new Student(
-                            studentId, name, department, cgpa, email);
+                            studentId, name, department, cgpa, email
+                    );
 
                     studentService.addStudent(student);
                     break;
@@ -73,65 +82,72 @@ public class Main {
                     break;
 
                 case 3: {
-                    int searchId = InputUtil.readInt(
-                            sc, "Enter Student ID to search: ");
-                    studentService.searchStudent(searchId);
+                    System.out.print("Enter Student ID to search: ");
+                    int id = Integer.parseInt(sc.nextLine());
+
+                    studentService.searchStudent(id);
                     break;
                 }
 
                 case 4: {
-                    int updateId = InputUtil.readInt(
-                            sc, "Enter Student ID to update: ");
+                    System.out.print("Enter Student ID to update: ");
+                    int updateId = Integer.parseInt(sc.nextLine());
 
-                    sc.nextLine();
                     System.out.print("Enter New Name: ");
                     String newName = sc.nextLine();
 
                     System.out.print("Enter New Department: ");
                     String newDepartment = sc.nextLine();
 
-                    double newCgpa = InputUtil.readDouble(
-                            sc, "Enter New CGPA: ");
+                    System.out.print("Enter New CGPA: ");
+                    double newCgpa = Double.parseDouble(sc.nextLine());
 
-                    sc.nextLine();
                     System.out.print("Enter New Email: ");
                     String newEmail = sc.nextLine();
 
                     studentService.updateStudent(
-                            updateId, newName, newDepartment,
-                            newCgpa, newEmail);
+                            updateId,
+                            newName,
+                            newDepartment,
+                            newCgpa,
+                            newEmail
+                    );
                     break;
                 }
 
                 case 5: {
-                    int deleteId = InputUtil.readInt(
-                            sc, "Enter Student ID to delete: ");
+                    System.out.print("Enter Student ID to delete: ");
+                    int deleteId = Integer.parseInt(sc.nextLine());
+
                     studentService.deleteStudent(deleteId);
                     break;
                 }
 
                 case 6: {
-                    int companyId = InputUtil.readInt(
-                            sc, "Enter Company ID: ");
+                    System.out.print("Enter Company ID: ");
+                    int companyId = Integer.parseInt(sc.nextLine());
 
-                    sc.nextLine();
                     System.out.print("Enter Company Name: ");
                     String companyName = sc.nextLine();
 
                     System.out.print("Enter Job Role: ");
                     String jobRole = sc.nextLine();
 
-                    double packageLpa = InputUtil.readDouble(
-                            sc, "Enter Package (LPA): ");
+                    System.out.print("Enter Package (LPA): ");
+                    double packageLpa =
+                            Double.parseDouble(sc.nextLine());
 
-                    double minimumCgpa = InputUtil.readDouble(
-                            sc, "Enter Minimum CGPA: ");
-
-                    sc.nextLine();
+                    System.out.print("Enter Minimum CGPA: ");
+                    double minimumCgpa =
+                            Double.parseDouble(sc.nextLine());
 
                     Company company = new Company(
-                            companyId, companyName, jobRole,
-                            packageLpa, minimumCgpa);
+                            companyId,
+                            companyName,
+                            jobRole,
+                            packageLpa,
+                            minimumCgpa
+                    );
 
                     companyService.addCompany(company);
                     break;
@@ -142,37 +158,45 @@ public class Main {
                     break;
 
                 case 8: {
-                    int searchCompanyId = InputUtil.readInt(
-                            sc, "Enter Company ID to search: ");
-                    companyService.searchCompany(searchCompanyId);
+                    System.out.print("Enter Company ID to search: ");
+                    int companyId = Integer.parseInt(sc.nextLine());
+
+                    companyService.searchCompany(companyId);
                     break;
                 }
 
                 case 9: {
-                    int eligibilityCompanyId = InputUtil.readInt(
-                            sc, "Enter Company ID: ");
+                    System.out.print("Enter Company ID: ");
+                    int eligibleCompanyId =
+                            Integer.parseInt(sc.nextLine());
 
                     companyService.showEligibleStudents(
-                            eligibilityCompanyId, studentService);
+                            eligibleCompanyId,
+                            studentService
+                    );
                     break;
                 }
 
                 case 10: {
-                    int applicationId = InputUtil.readInt(
-                            sc, "Enter Application ID: ");
+                    System.out.print("Enter Application ID: ");
+                    int applicationId =
+                            Integer.parseInt(sc.nextLine());
 
-                    int applicationStudentId = InputUtil.readInt(
-                            sc, "Enter Student ID: ");
+                    System.out.print("Enter Student ID: ");
+                    int applicationStudentId =
+                            Integer.parseInt(sc.nextLine());
 
-                    int applicationCompanyId = InputUtil.readInt(
-                            sc, "Enter Company ID: ");
+                    System.out.print("Enter Company ID: ");
+                    int applicationCompanyId =
+                            Integer.parseInt(sc.nextLine());
 
                     applicationService.applyForCompany(
                             applicationId,
                             applicationStudentId,
                             applicationCompanyId,
                             studentService,
-                            companyService);
+                            companyService
+                    );
                     break;
                 }
 
@@ -181,25 +205,29 @@ public class Main {
                     break;
 
                 case 12: {
-                    int updateApplicationId = InputUtil.readInt(
-                            sc, "Enter Application ID: ");
+                    System.out.print("Enter Application ID: ");
+                    int applicationId =
+                            Integer.parseInt(sc.nextLine());
 
-                    sc.nextLine();
                     System.out.print(
-                            "Enter new status (Applied/Selected/Rejected): ");
-                    String newStatus = sc.nextLine().trim();
+                            "Enter New Status (Applied/Selected/Rejected): "
+                    );
+                    String newStatus = sc.nextLine();
 
                     applicationService.updateApplicationStatus(
-                            updateApplicationId, newStatus);
+                            applicationId,
+                            newStatus
+                    );
                     break;
                 }
 
                 case 13: {
-                    int applicationSearchStudentId = InputUtil.readInt(
-                            sc, "Enter Student ID: ");
+                    System.out.print("Enter Student ID: ");
+                    int studentId = Integer.parseInt(sc.nextLine());
 
                     applicationService.viewApplicationsByStudent(
-                            applicationSearchStudentId);
+                            studentId
+                    );
                     break;
                 }
 
@@ -207,17 +235,236 @@ public class Main {
                     applicationService.displayPlacementStatistics();
                     break;
 
-                case 15:
+                case 15: {
+
+                    int resumeChoice;
+
+                    do {
+                        System.out.println("\n================================");
+                        System.out.println("       RESUME MANAGEMENT");
+                        System.out.println("================================");
+
+                        System.out.println("1. Add Student Resume");
+                        System.out.println("2. View All Resumes");
+                        System.out.println("3. Search Resume by Student ID");
+                        System.out.println("4. Check Resume Submission Status");
+                        System.out.println("5. Update Student Resume");
+                        System.out.println("6. Delete Student Resume");
+                        System.out.println("7. Back to Main Menu");
+
+                        System.out.print("\nEnter your choice: ");
+                        resumeChoice =
+                                Integer.parseInt(sc.nextLine());
+
+                        switch (resumeChoice) {
+
+                            case 1: {
+                                System.out.print("Enter Student ID: ");
+                                int id = Integer.parseInt(sc.nextLine());
+
+                                if (!studentService.studentExists(id)) {
+                                    System.out.println(
+                                            "Student is not registered!"
+                                    );
+                                    break;
+                                }
+
+                                String studentId = String.valueOf(id);
+
+                                if (resumeService.hasResume(studentId)) {
+                                    System.out.println(
+                                            "Resume already submitted!"
+                                    );
+                                    break;
+                                }
+
+                                System.out.print("Enter Email: ");
+                                String email = sc.nextLine();
+
+                                System.out.print("Enter Education Details: ");
+                                String education = sc.nextLine();
+
+                                System.out.print("Enter Skills: ");
+                                String skills = sc.nextLine();
+
+                                System.out.print("Enter Projects: ");
+                                String projects = sc.nextLine();
+
+                                System.out.print("Enter Certifications: ");
+                                String certifications = sc.nextLine();
+
+                                System.out.print(
+                                        "Enter Resume PDF File Path: "
+                                );
+                                String filePath = sc.nextLine();
+
+                                if (!resumeService.isValidPdf(filePath)) {
+                                    System.out.println(
+                                            "Resume submission cancelled!"
+                                    );
+                                    break;
+                                }
+
+                                Resume resume = new Resume(
+                                        studentId,
+                                        email,
+                                        education,
+                                        skills,
+                                        projects,
+                                        certifications,
+                                        filePath.trim()
+                                );
+
+                                resumeService.addResume(resume);
+                                break;
+                            }
+
+                            case 2:
+                                resumeService.viewAllResumes();
+                                break;
+
+                            case 3: {
+                                System.out.print("Enter Student ID: ");
+                                String studentId = sc.nextLine();
+
+                                Resume resume =
+                                        resumeService.getResumeByStudentId(
+                                                studentId
+                                        );
+
+                                if (resume != null) {
+                                    resume.displayResume();
+                                } else {
+                                    System.out.println("Resume not found!");
+                                }
+                                break;
+                            }
+
+                            case 4: {
+                                System.out.print("Enter Student ID: ");
+                                String studentId = sc.nextLine();
+
+                                if (resumeService.hasResume(studentId)) {
+                                    System.out.println(
+                                            "Resume has been submitted."
+                                    );
+                                } else {
+                                    System.out.println(
+                                            "Resume has not been submitted."
+                                    );
+                                }
+                                break;
+                            }
+
+                            case 5: {
+                                System.out.print("Enter Student ID: ");
+                                String studentId = sc.nextLine();
+
+                                if (!resumeService.hasResume(studentId)) {
+                                    System.out.println("Resume not found!");
+                                    break;
+                                }
+
+                                System.out.print("Enter Email: ");
+                                String email = sc.nextLine();
+
+                                System.out.print("Enter Education Details: ");
+                                String education = sc.nextLine();
+
+                                System.out.print("Enter Skills: ");
+                                String skills = sc.nextLine();
+
+                                System.out.print("Enter Projects: ");
+                                String projects = sc.nextLine();
+
+                                System.out.print("Enter Certifications: ");
+                                String certifications = sc.nextLine();
+
+                                System.out.print(
+                                        "Enter New Resume PDF File Path: "
+                                );
+                                String filePath = sc.nextLine();
+
+                                if (!resumeService.isValidPdf(filePath)) {
+                                    System.out.println(
+                                            "Resume update cancelled!"
+                                    );
+                                    break;
+                                }
+
+                                Resume updatedResume = new Resume(
+                                        studentId,
+                                        email,
+                                        education,
+                                        skills,
+                                        projects,
+                                        certifications,
+                                        filePath.trim()
+                                );
+
+                                resumeService.updateResume(
+                                        studentId,
+                                        updatedResume
+                                );
+                                break;
+                            }
+
+                            case 6: {
+                                System.out.print(
+                                        "Enter Student ID to delete resume: "
+                                );
+                                String studentId = sc.nextLine();
+
+                                if (!resumeService.hasResume(studentId)) {
+                                    System.out.println("Resume not found!");
+                                    break;
+                                }
+
+                                System.out.print(
+                                        "Are you sure you want to delete "
+                                                + "this resume? (yes/no): "
+                                );
+
+                                String confirmation = sc.nextLine();
+
+                                if (confirmation.equalsIgnoreCase("yes")) {
+                                    resumeService.deleteResume(studentId);
+                                } else {
+                                    System.out.println(
+                                            "Resume deletion cancelled!"
+                                    );
+                                }
+                                break;
+                            }
+
+                            case 7:
+                                System.out.println(
+                                        "Returning to Main Menu..."
+                                );
+                                break;
+
+                            default:
+                                System.out.println(
+                                        "Invalid Resume Management choice!"
+                                );
+                        }
+
+                    } while (resumeChoice != 7);
+
+                    break;
+                }
+
+                case 16:
                     System.out.println(
-                            "Exiting Student Placement Management System.");
+                            "Thank you for using Student Placement Management System!"
+                    );
                     break;
 
                 default:
-                    System.out.println(
-                            "Invalid choice! Please enter a number from 1 to 15.");
+                    System.out.println("Invalid choice! Try again.");
             }
 
-        } while (choice != 15);
+        } while (choice != 16);
 
         sc.close();
     }
