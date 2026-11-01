@@ -18,6 +18,7 @@ public class StudentService {
 
     // Load saved students when the service starts
     private void loadStudents() {
+
         List<String> records = FileStorage.loadRecords("students.txt");
 
         for (String record : records) {
@@ -39,6 +40,7 @@ public class StudentService {
                 if (ValidationUtil.isValidStudentId(student.getStudentId())
                         && isValidStudent(student)
                         && !studentIdExists(student.getStudentId())) {
+
                     students.add(student);
                 }
 
@@ -50,8 +52,9 @@ public class StudentService {
         System.out.println("Student records loaded: " + students.size());
     }
 
-    // Save all students to the file
+    // Save all students to file
     private void saveStudents() {
+
         List<String> records = new ArrayList<>();
 
         for (Student student : students) {
@@ -67,17 +70,21 @@ public class StudentService {
         FileStorage.saveRecords("students.txt", records);
     }
 
+    // Check whether Student ID already exists
     private boolean studentIdExists(int studentId) {
+
         for (Student student : students) {
             if (student.getStudentId() == studentId) {
                 return true;
             }
         }
+
         return false;
     }
 
     // Register a student
     public void addStudent(Student student) {
+
         if (!ValidationUtil.isValidStudentId(student.getStudentId())) {
             System.out.println("Invalid student ID!");
             return;
@@ -94,11 +101,13 @@ public class StudentService {
 
         students.add(student);
         saveStudents();
+
         System.out.println("Student added successfully!");
     }
 
     // Validate student details
     private boolean isValidStudent(Student student) {
+
         if (!ValidationUtil.isValidName(student.getName())) {
             System.out.println("Student name cannot be empty!");
             return false;
@@ -124,6 +133,7 @@ public class StudentService {
 
     // View all students
     public void viewAllStudents() {
+
         if (students.isEmpty()) {
             System.out.println("No student records found.");
             return;
@@ -137,6 +147,7 @@ public class StudentService {
 
     // Search a student
     public boolean searchStudent(int studentId) {
+
         for (Student student : students) {
             if (student.getStudentId() == studentId) {
                 System.out.println("Student found!");
@@ -158,7 +169,9 @@ public class StudentService {
             String email) {
 
         for (Student student : students) {
+
             if (student.getStudentId() == studentId) {
+
                 Student updatedStudent = new Student(
                         studentId, name, department, cgpa, email
                 );
@@ -173,6 +186,7 @@ public class StudentService {
                 student.setEmail(email);
 
                 saveStudents();
+
                 System.out.println("Student updated successfully!");
                 return;
             }
@@ -183,6 +197,7 @@ public class StudentService {
 
     // Delete a student
     public void deleteStudent(int studentId) {
+
         boolean removed = students.removeIf(
                 student -> student.getStudentId() == studentId
         );
@@ -197,9 +212,11 @@ public class StudentService {
 
     // Display students eligible for placement
     public void showEligibleStudents(double minimumCgpa) {
+
         boolean found = false;
 
         for (Student student : students) {
+
             if (student.getCgpa() >= minimumCgpa) {
                 System.out.println("----------------------");
                 student.displayStudent();
@@ -212,23 +229,28 @@ public class StudentService {
         }
     }
 
+    // Public method to verify student registration
     public boolean studentExists(int studentId) {
+
         for (Student student : students) {
             if (student.getStudentId() == studentId) {
                 return true;
             }
         }
+
         return false;
     }
 
+    // Get student CGPA using Student ID
     public double getStudentCgpa(int studentId) {
+
         for (Student student : students) {
+
             if (student.getStudentId() == studentId) {
                 return student.getCgpa();
             }
         }
+
         return -1;
     }
-
 }
-
