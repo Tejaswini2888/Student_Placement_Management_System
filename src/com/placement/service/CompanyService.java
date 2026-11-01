@@ -18,6 +18,7 @@ public class CompanyService {
 
     // Load saved companies
     private void loadCompanies() {
+
         List<String> records = FileStorage.loadRecords("companies.txt");
 
         for (String record : records) {
@@ -38,6 +39,7 @@ public class CompanyService {
 
                 if (isValidCompany(company)
                         && !companyIdExists(company.getCompanyId())) {
+
                     companies.add(company);
                 }
 
@@ -51,9 +53,11 @@ public class CompanyService {
 
     // Save companies
     private void saveCompanies() {
+
         List<String> records = new ArrayList<>();
 
         for (Company company : companies) {
+
             records.add(
                     company.getCompanyId() + ","
                             + company.getCompanyName() + ","
@@ -68,6 +72,7 @@ public class CompanyService {
 
     // Validate company details
     private boolean isValidCompany(Company company) {
+
         return company.getCompanyId() > 0
                 && company.getCompanyName() != null
                 && !company.getCompanyName().trim().isEmpty()
@@ -80,17 +85,22 @@ public class CompanyService {
                 && company.getMinimumCgpa() <= 10;
     }
 
+    // Check whether company ID already exists
     private boolean companyIdExists(int companyId) {
+
         for (Company company : companies) {
+
             if (company.getCompanyId() == companyId) {
                 return true;
             }
         }
+
         return false;
     }
 
     // Add company
     public void addCompany(Company company) {
+
         if (!isValidCompany(company)) {
             System.out.println("Invalid company details!");
             return;
@@ -103,17 +113,20 @@ public class CompanyService {
 
         companies.add(company);
         saveCompanies();
+
         System.out.println("Company added successfully!");
     }
 
     // View all companies
     public void viewAllCompanies() {
+
         if (companies.isEmpty()) {
             System.out.println("No company records found.");
             return;
         }
 
         for (Company company : companies) {
+
             System.out.println("----------------------");
             company.displayCompany();
         }
@@ -121,10 +134,14 @@ public class CompanyService {
 
     // Search company by ID
     public boolean searchCompany(int companyId) {
+
         for (Company company : companies) {
+
             if (company.getCompanyId() == companyId) {
+
                 System.out.println("Company found!");
                 company.displayCompany();
+
                 return true;
             }
         }
@@ -141,6 +158,7 @@ public class CompanyService {
         Company selectedCompany = null;
 
         for (Company company : companies) {
+
             if (company.getCompanyId() == companyId) {
                 selectedCompany = company;
                 break;
@@ -159,28 +177,33 @@ public class CompanyService {
                 + selectedCompany.getMinimumCgpa());
 
         studentService.showEligibleStudents(
-                selectedCompany.getMinimumCgpa());
+                selectedCompany.getMinimumCgpa()
+        );
     }
 
+    // Check whether company exists
     public boolean companyExists(int companyId) {
+
         for (Company company : companies) {
+
             if (company.getCompanyId() == companyId) {
                 return true;
             }
         }
+
         return false;
     }
 
+    // Get minimum CGPA required by a company
     public double getMinimumCgpa(int companyId) {
+
         for (Company company : companies) {
+
             if (company.getCompanyId() == companyId) {
                 return company.getMinimumCgpa();
             }
         }
+
         return -1;
     }
-
 }
-
-
-
