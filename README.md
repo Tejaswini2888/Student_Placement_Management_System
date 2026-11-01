@@ -1,50 +1,116 @@
-
 # Student Placement Management System
 
 ## Project Overview
-The Student Placement Management System is a Java-based
-console application that helps manage student details,
-company information, and placement applications.
+
+The **Student Placement Management System** is a Java-based console application designed to simplify and manage the student placement process. It helps maintain student records, company details, placement applications, and student resumes through a menu-driven interface.
 
 ## Features
-- Register, view, search, update, and delete students
-- Add, view, and search companies
-- Validate student details and CGPA
-- Identify students eligible for company placements
-- Submit placement applications
-- Prevent duplicate applications
-- View applications by student
-- Update application status
-- Generate placement statistics
-- Save and load records using text files
-- Handle invalid numeric input
+
+### Student Management
+- Register new students.
+- View, search, update, and delete student records.
+- Validate student details and CGPA.
+
+### Company Management
+- Add, view, and search company details.
+- Display eligible students based on company CGPA requirements.
+
+### Placement Application Management
+- Apply for company placement opportunities.
+- Prevent duplicate applications.
+- View all applications and applications by student.
+- Update application status (Applied, Selected, Rejected).
+- Generate placement statistics.
+
+### Resume Management
+- Add and view student resumes.
+- Search resumes using Student ID.
+- Check resume submission status.
+- Update and delete resume records.
+- Validate PDF file paths.
+
+### Data Management
+- Store records using text files.
+- Load saved records when the application starts.
+- Preserve data between application runs.
 
 ## Technologies Used
+
 - Java
 - JDK 26
 - IntelliJ IDEA
-- File handling
-- Object-Oriented Programming
 - Git and GitHub
 
+## Java Concepts Implemented
+
+- Object-Oriented Programming (OOP)
+- Classes and Objects
+- Encapsulation
+- Constructors and Methods
+- ArrayList and Collections
+- Exception Handling
+- File Handling
+- Input Validation
+- Modular Programming using Packages
+
 ## Project Structure
-- `com.placement` - Main application
-- `com.placement.model` - Student, Company, and PlacementApplication
-- `com.placement.service` - Application logic
-- `com.placement.util` - Validation and input utilities
-- `com.placement.storage` - File storage
+
+```text
+StudentPlacementManagementSystem/
+│
+├── src/
+│   └── com.placement/
+│       ├── model/
+│       │   ├── Student.java
+│       │   ├── Company.java
+│       │   ├── PlacementApplication.java
+│       │   └── Resume.java
+│       │
+│       ├── service/
+│       │   ├── StudentService.java
+│       │   ├── CompanyService.java
+│       │   ├── PlacementApplicationService.java
+│       │   └── ResumeService.java
+│       │
+│       ├── storage/
+│       │   └── FileStorage.java
+│       │
+│       ├── util/
+│       │   ├── InputUtil.java
+│       │   └── ValidationUtil.java
+│       │
+│       └── Main.java
+│
+├── .gitignore
+└── README.md
+```
 
 ## How to Run
+
 1. Install JDK 26 or a compatible JDK.
 2. Open the project in IntelliJ IDEA.
-3. Run `Main.java`.
-4. Use the numbered menu to manage placement records.
+3. Navigate to `Main.java`.
+4. Run the `Main` class.
+5. Select options from the menu to manage placement records.
 
 ## Data Storage
-Records are saved in the `data` directory:
+
+The application stores records in text files inside the `data` directory:
+
 - `students.txt`
 - `companies.txt`
 - `applications.txt`
+- `resumes.txt`
+
+The application loads saved records whenever it starts.
+
+## Future Enhancements
+
+- Database integration using MySQL.
+- Graphical User Interface (GUI).
+- Student and administrator login authentication.
+- Automated placement notifications.
 
 ## Author
+
 Student Project
